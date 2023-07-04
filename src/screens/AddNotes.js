@@ -9,9 +9,14 @@ const AddNotes = () => {
   const navigation = useNavigation();
 
   const saveNote = async () => {
-    let temp = [];
-    temp.push({title:title, desc: desc});
-    await EncryptedStorage.setItem('notes', JSON.stringify({data: temp}))
+    let x = [];
+    let y = await EncryptedStorage.getItem('notes');
+    let data = JSON.parse(y);
+    data.data.map(item => {
+      x.push(item);
+    });
+    x.push({title:title, desc: desc});
+    await EncryptedStorage.setItem('notes', JSON.stringify({data: x}))
     navigation.goBack();
   }
   return (
